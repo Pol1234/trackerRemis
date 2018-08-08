@@ -4,6 +4,7 @@ import { ViewChild } from '@angular/core';
 import { Slides } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { UsuarioProvider } from '../../providers/usuario/usuario';
+import { HomePage } from '../home/home';
 
 
 @IonicPage()
@@ -82,7 +83,7 @@ export class LoginPage {
 
     this._usuarioProv.verificaUsuario( clave )
     .then( existe =>{
-      
+
       loading.dismiss();
 
       if(existe){
@@ -105,11 +106,13 @@ export class LoginPage {
 
       }
 
-
-
     })
 
     
+  }
+
+  ingresar(){
+    this.navCtrl.setRoot( HomePage );
   }
 
 }

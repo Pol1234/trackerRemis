@@ -9,10 +9,13 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { UsuarioProvider } from '../providers/usuario/usuario';
 
+import { IonicStorageModule } from '@ionic/storage';
+
 //firebase
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { firebaseConfig } from '../config/firebase.config';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +27,8 @@ import { firebaseConfig } from '../config/firebase.config';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
