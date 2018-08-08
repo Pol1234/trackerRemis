@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Platform } from '../../../node_modules/ionic-angular/';
 import { Storage } from '@ionic/storage';
+import { Subscription } from '../../../node_modules/rxjs';
 
 
 @Injectable()
@@ -9,6 +10,7 @@ export class UsuarioProvider {
 
   clave: string;
   user:any ={};
+  doc:Subscription;
 
   constructor(private afDB: AngularFirestore, private platform: Platform, private storage: Storage) {
     
@@ -20,7 +22,7 @@ export class UsuarioProvider {
 
     return new Promise( (resolve, reject) =>{
 
-      this.afDB.doc(`usuarios/${ clave }`)
+      this.doc= this.afDB.doc(`usuarios/${ clave }`)
       .valueChanges().subscribe(data =>{
 
         if(data){
@@ -81,6 +83,18 @@ export class UsuarioProvider {
       }
 
     });
+  }
+
+  borrarUsuario(){
+    this.clave= null;
+
+    if( this.platform.is('cordova') ){
+      this.storage.remove('clave');
+    }else{
+      localStorage.removeItem('clave');
+    }
+    this.doc.unsubscribe();
+
   }
 
 }
